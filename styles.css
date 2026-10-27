@@ -195,3 +195,11 @@ a { color: var(--accent); text-decoration: none; }
   .stats-grid { gap: 24px; }
 }
 
+/* ---- Family bar (unified branding across all AGIF sites) ---- */
+.family-bar {
+  margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--border);
+  display: flex; gap: 10px 18px; flex-wrap: wrap; align-items: center; justify-content: center;
+}
+.family-bar p { color: var(--text-muted); font-size: 0.85rem; }
+.family-bar a { color: var(--text-muted); font-weight: 600; }
+.family-bar a:hover { color: var(--accent); }
