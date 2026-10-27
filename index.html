@@ -3,114 +3,167 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mentib — Something New Is Taking Shape</title>
-  <meta name="description" content="Mentib — a new project is in the works. Follow along as it takes shape." />
+  <title>Mentib DeepMatch — Swipe to find your next deal</title>
+  <meta name="description" content="A Tinder-style deep-matching tool for investors, startups, corporations, and family funds. Swipe through the ecosystem and match on real data." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <nav class="nav container">
-      <a class="brand" href="#top">mentib</a>
+      <a class="brand" href="#top">mentib <span class="accent">DeepMatch</span></a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#coming">What's coming</a></li>
-        <li><a href="#media">Media</a></li>
-        <li><a href="#contact" class="btn btn-primary">Get in touch</a></li>
+        <li><a href="#top">The Deck</a></li>
+        <li><a href="#how">How matching works</a></li>
+        <li><a href="https://github.com/AGIFutureFoundation/mentib-us" target="_blank" rel="noopener">GitHub ↗</a></li>
+        <li><button class="btn btn-primary" id="shortlistBtn">Shortlist <span class="sl-badge" id="shortlistCount">0</span></button></li>
       </ul>
     </nav>
   </header>
 
   <main id="top">
+    <!-- HERO / SETUP -->
     <section class="hero">
       <div class="container hero-inner">
-        <p class="eyebrow">mentib.us — a new project</p>
-        <h1>Something new is <span class="accent">taking shape</span></h1>
-        <p class="lead">TODO: replace this with your project's one-liner. This page is your launch pad — describe what you're building and who it's for.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Get in touch</a>
-          <a href="#coming" class="btn btn-ghost">What's coming</a>
-        </div>
-      </div>
-    </section>
+        <p class="eyebrow">mentib.us — deep matching for the dealmaking world</p>
+        <h1>Swipe right on your <span class="accent">next deal</span></h1>
+        <p class="lead">Tinder-style matching for <strong>investors, startups, corporations, and family funds</strong>. Every card is scored on real data — sectors, stage, check size, geography, and thesis. Swipe right to shortlist, export your matches as JSON.</p>
 
-    <section id="about" class="section">
-      <div class="container">
-        <h2 class="section-title">About the project</h2>
-        <div class="split">
-          <article class="card">
-            <h3>The idea</h3>
-            <p>TODO: one or two paragraphs on the problem you're solving and why it matters.</p>
-          </article>
-          <article class="card">
-            <h3>Who it's for</h3>
-            <p>TODO: describe your audience and what they'll be able to do here.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="coming" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">What's coming</h2>
-        <div class="grid-3">
-          <article class="card mechanism"><div class="mech-icon">01</div><h3>First</h3><p>TODO: describe the first milestone.</p></article>
-          <article class="card mechanism"><div class="mech-icon">02</div><h3>Next</h3><p>TODO: describe the next milestone.</p></article>
-          <article class="card mechanism"><div class="mech-icon">03</div><h3>Later</h3><p>TODO: describe the long-term vision.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="media" class="section">
-      <div class="container">
-        <h2 class="section-title">Media &amp; embeds</h2>
-        <p class="section-sub">Drop in videos, maps, or calendars — set <code>data-youtube-id</code> to activate.</p>
-        <div class="grid-3">
-          <div class="embed-card" data-youtube-id=""><div class="embed-facade"><span class="embed-play">▶</span><p>Intro video</p></div></div>
-          <div class="embed-card" data-youtube-id=""><div class="embed-facade"><span class="embed-play">▶</span><p>Demo</p></div></div>
-          <div class="embed-card" data-youtube-id=""><div class="embed-facade"><span class="embed-play">▶</span><p>Deep dive</p></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contact" class="section section-alt">
-      <div class="container">
-        <h2 class="section-title">Get in touch</h2>
-        <p class="section-sub">TODO: wire this form to a backend, or replace with an email link.</p>
-        <form class="contact-form" id="contactForm">
-          <div class="form-row">
-            <label>Name<input type="text" name="name" required placeholder="Your name" /></label>
-            <label>Email<input type="email" name="email" required placeholder="you@example.com" /></label>
+        <div id="setup" hidden>
+          <div id="setupRoles" hidden>
+            <h2 style="margin-top:8px">I am a…</h2>
+            <div class="grid-3" style="margin-top:18px">
+              <button class="role-btn card" data-role="startup">🚀 <h3>Startup</h3><p>Raising capital and partnerships.</p></button>
+              <button class="role-btn card" data-role="investor">💰 <h3>Investor</h3><p>Deploying capital into startups.</p></button>
+              <button class="role-btn card" data-role="corporation">🏢 <h3>Corporation</h3><p>Partnering and investing strategically.</p></button>
+              <button class="role-btn card" data-role="family_fund">🏛️ <h3>Family Fund</h3><p>Patient, thesis-driven capital.</p></button>
+            </div>
           </div>
-          <label>Message<textarea name="message" rows="4" placeholder="Say hello..."></textarea></label>
-          <button type="submit" class="btn btn-primary">Send</button>
-          <p class="form-note" id="formNote" hidden>Thanks — we'll be in touch.</p>
-        </form>
+          <form id="setupPrefs" class="prefs-form card" hidden>
+            <h3>Set your deal preferences — this powers the matching engine</h3>
+            <fieldset>
+              <legend>Sectors you care about</legend>
+              <div class="chips" style="justify-content:flex-start">
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="ai" checked /> AI</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="robotics" checked /> Robotics</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="spatial" checked /> Spatial</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="health" /> Health</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="education" /> Education</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="security" /> Security</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="web3" /> Web3</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="climate" /> Climate</label>
+                <label class="chip-toggle"><input type="checkbox" name="sector" value="realestate" /> Real Estate</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Thesis &amp; values (bonus scoring)</legend>
+              <div class="chips" style="justify-content:flex-start">
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="agi-safety" checked /> AGI safety</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="open-standards" checked /> Open standards</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="workforce-training" /> Workforce training</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="fiduciary-governance" /> Fiduciary governance</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="dao-governance" /> DAO governance</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="open-source" /> Open source</label>
+                <label class="chip-toggle"><input type="checkbox" name="thesis" value="x402" /> x402 payments</label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Geography</legend>
+              <div class="chips" style="justify-content:flex-start">
+                <label class="chip-toggle"><input type="checkbox" name="geo" value="US" checked /> US</label>
+                <label class="chip-toggle"><input type="checkbox" name="geo" value="global" checked /> Global</label>
+              </div>
+            </fieldset>
+            <div class="form-row">
+              <label>Stage focus
+                <select id="prefStage">
+                  <option value="idea">Idea</option>
+                  <option value="building" selected>Building</option>
+                  <option value="launched">Launched</option>
+                  <option value="scaling">Scaling</option>
+                </select>
+              </label>
+              <label class="check-prefs">Check range ($K)
+                <div class="range-inputs">
+                  <input type="number" id="checkMin" min="0" placeholder="min" value="50" />
+                  <input type="number" id="checkMax" min="0" placeholder="max" value="3000" />
+                </div>
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Start swiping →</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- THE DECK -->
+    <section id="app" class="section deck-section" hidden>
+      <div class="container deck-container">
+        <div id="deckZone" class="deck-zone"></div>
+        <div class="deck-actions">
+          <button class="deck-btn deck-btn-pass" id="btnPass" aria-label="Pass">✕</button>
+          <button class="deck-btn deck-btn-like" id="btnLike" aria-label="Match">♥</button>
+        </div>
+        <p id="counter" class="deck-counter">— left</p>
+        <p class="deck-hint">Drag the card or use ← / → keys</p>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section section-alt">
+      <div class="container">
+        <h2 class="section-title">How matching works</h2>
+        <p class="section-sub">Every card is scored against your preferences with a weighted engine — no black box.</p>
+        <div class="grid-3">
+          <article class="card"><span class="article-cat">35 pts</span><h3>Sector fit</h3><p>Overlap between the sectors you care about and the profile's sectors.</p></article>
+          <article class="card"><span class="article-cat">25 + 25 pts</span><h3>Stage &amp; check size</h3><p>Stage alignment plus whether the raise target (or check range) fits your numbers.</p></article>
+          <article class="card"><span class="article-cat">15 + 15 pts</span><h3>Geography &amp; thesis</h3><p>Geographic overlap plus a bonus for shared values — AGI safety, open standards, x402, and more.</p></article>
+        </div>
+        <p style="margin-top:24px;color:var(--text-muted)">Profiles seeded from the AGIF ecosystem (WorldForge, SmartCiti.X, WAVE, Diagnostic.X, Robotics DAO…) plus sample capital-side entries. Swap <code>data.js</code> for your own book — the engine is data-driven.</p>
       </div>
     </section>
   </main>
 
+  <!-- MATCH MODAL -->
+  <div id="matchModal" class="dm-modal">
+    <div class="dm-modal-card">
+      <p class="dm-match-eyebrow">✦ It's a match ✦</p>
+      <h2 class="dm-match-name"></h2>
+      <p class="dm-match-score"></p>
+      <ul class="dm-match-reasons"></ul>
+      <button class="btn btn-primary" id="matchClose">Keep swiping</button>
+    </div>
+  </div>
+
+  <!-- SHORTLIST DRAWER -->
+  <aside id="shortlistDrawer" class="sl-drawer">
+    <div class="sl-head">
+      <h3>Your shortlist</h3>
+      <button id="shortlistClose" aria-label="Close">✕</button>
+    </div>
+    <ul id="shortlistItems"></ul>
+    <button class="btn btn-primary" id="exportBtn" style="margin:16px">Export shortlist (JSON)</button>
+  </aside>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
-        <p class="brand">mentib</p>
-        <p>© 2026 mentib.us</p>
+        <p class="brand">mentib DeepMatch</p>
+        <p>Deep-matching for investors, startups, corporations, and family funds. © 2026 mentib.us</p>
       </div>
       <nav class="footer-nav">
-        <a href="#about">About</a><a href="#coming">What's coming</a><a href="#contact">Contact</a>
+        <a href="#top">The Deck</a><a href="#how">How matching works</a>
       </nav>
       <div class="social-links">
-        <!-- TODO: replace # with real profile URLs -->
-        <a href="https://github.com/AGIFutureFoundation" aria-label="GitHub" rel="noopener" target="_blank">GitHub</a>
+        <a href="https://github.com/AGIFutureFoundation/mentib-us" aria-label="GitHub" rel="noopener" target="_blank">GitHub</a>
         <a href="#" aria-label="X (Twitter)" rel="noopener" target="_blank">X</a>
-        <a href="#" aria-label="Instagram" rel="noopener" target="_blank">Instagram</a>
-        <a href="#" aria-label="YouTube" rel="noopener" target="_blank">YouTube</a>
+        <a href="#" aria-label="LinkedIn" rel="noopener" target="_blank">LinkedIn</a>
       </div>
     </div>
     <div class="container family-bar">
       <p>Part of the <a href="https://agifuturefoundation.org">AGI Future Foundation</a> family · <a href="https://worldforge.agifuturefoundation.org">WorldForge</a> · <a href="https://smartciti.x.agifuturefoundation.org">SmartCiti.X</a> · <a href="https://agifellowship.church">AGI Fellowship</a> · <a href="https://agi.lease">AGI Accelerator</a> · <a href="https://bioacoustics.cloud">WAVE</a></p>
     </div>
   </footer>
+  <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
